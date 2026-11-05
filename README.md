@@ -56,3 +56,24 @@ Create a new Google Sheet with columns: Timestamp, Name, Email, Subject, and Mes
 Open Extensions > Apps Script in the spreadsheet.
 
 Paste the following script to handle POST requests:
+
+function doPost(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var data = e.parameter;
+  sheet.appendRow([new Date(), data.name, data.email, data.subject, data.message]);
+  return ContentService.createTextOutput(JSON.stringify({"result":"success"}))
+                       .setMimeType(ContentService.MimeType.JSON);
+}
+
+
+Deploy as a Web App:
+
+Execute as: Me
+
+Who has access: Anyone
+
+Paste the generated Web App URL into the configuration field on the portfolio contact form or directly into the input field in the UI.
+
+📄 License
+
+Distributed under the MIT License. See LICENSE for more information.
